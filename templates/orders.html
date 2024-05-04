@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Orders</h1>
+  <form method="POST" action="{{ url_for('orders') }}">
+    {{ form.csrf_token }}
+    <div class="mb-3">
+      {{ form.customer_id.label }}
+      {{ form.customer_id(class="form-control") }}
+    </div>
+    <div class="mb-3">
+      {{ form.car_id.label }}
+      {{ form.car_id(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+  </form>
+  <hr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>Customer</th>
+        <th>Car</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.customer.name }}</td>
+          <td>{{ order.car.make }} {{ order.car.model }}</td>
+          <td>{{ order.date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

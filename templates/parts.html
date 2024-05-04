@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="text-center mb-4">Parts</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="POST" action="{{ url_for('parts') }}" id="part-form">
+                    {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ form.name.label }}
+                        {{ form.name(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.description.label }}
+                        {{ form.description(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.price.label }}
+                        {{ form.price(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.quantity.label }}
+                        {{ form.quantity(class="form-control") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped" id="part-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for part in parts %}
+                        <tr>
+                            <td>{{ part.name }}</td>
+                            <td>{{ part.description }}</td>
+                            <td>{{ part.price }}</td>
+                            <td>{{ part.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container my-4">
+        <h1 class="text-center mb-4">Cars</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="POST" action="{{ url_for('cars') }}" id="car-form">
+                    {{ form.csrf_token }}
+                    <div class="mb-3">
+                        {{ form.make.label }}
+                        {{ form.make(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.model.label }}
+                        {{ form.model(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.year.label }}
+                        {{ form.year(class="form-control") }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.vin.label }}
+                        {{ form.vin(class="form-control") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-striped" id="car-table">
+                    <thead>
+                        <tr>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Year</th>
+                            <th>VIN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for car in cars %}
+                        <tr>
+                            <td>{{ car.make }}</td>
+                            <td>{{ car.model }}</td>
+                            <td>{{ car.year }}</td>
+                            <td>{{ car.vin }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
